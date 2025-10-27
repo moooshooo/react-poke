@@ -2,12 +2,18 @@
  * @Author: MoS 
  * @Date: 2025-10-27 15:12:28 
  * @Last Modified by: Mos
- * @Last Modified time: 2025-10-27 15:38:33
+ * @Last Modified time: 2025-10-27 17:59:14
  */
 
 * {
-  /* border: 1px solid red; */
+  border: 1px solid red;
   margin: 0;
+}
+.pokemon-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .progress-container {
