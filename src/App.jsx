@@ -7,15 +7,13 @@ function App() {
   const API_URL = `https://pokeapi.co/api/v2/pokemon?limit=${howMany}&offset=0`;
   const [pokemons, setPokemons] = useState(0);
   const [pokemonInfo, setPokemonInfo] = useState([]);
-  const [aboutPoke, setAboutPoke] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
   const [fetchData, setFetchData] = useState(false);
   const [pokemonData, setPokemonData] = useState([]);
   const [speciesData, setSpeciesData] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
-
     async function getPokemons() {
       console.log("Retiving pokemons");
       const getTheData = await fetch(API_URL);
@@ -35,24 +33,19 @@ function App() {
           //species
           const speciesRes = await fetch(pokeData.species.url);
           const speciesData = await speciesRes.json();
-          return {pokeData,speciesData}
+          return { pokeData, speciesData };
         })
       );
-      setPokemonData(detailedData.map(d => d.pokeData));
-      setSpeciesData(detailedData.map(d => d.speciesData));
-      setAboutPoke(detailedData);
+      setPokemonData(detailedData.map((d) => d.pokeData));
+      setSpeciesData(detailedData.map((d) => d.speciesData));
 
       console.log("Now you have more info");
     }
+    setIsLoading(true);
     getPokemons();
 
-    async function getMorePokeInfo() {
-      console.log("Now you have more info");
-    }
-    getMorePokeInfo();
 
-    setIsLoading(false);
-  }, [fetchData, API_URL]); //Förstår inte varför ESLint vill ha API_URL här är det för hur jag använt js i strängen?
+  }, [fetchData]); //Förstår inte varför ESLint vill ha API_URL här är det för hur jag använt js i strängen?
 
   const changeHowMany = (e) => {
     setHowMany(e.target.value);
@@ -72,7 +65,6 @@ function App() {
         {pokemonData.map((poke) => (
           <div>
             <p>{poke.name}</p>
-            
             <img src={poke.sprites.front_default} />
           </div>
         ))}

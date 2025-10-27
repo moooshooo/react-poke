@@ -14,7 +14,7 @@ function ProgressBar({ isLoading }) {
         width++;
         setProgress(width);
       }
-    }, 10);
+    }, 40);
 
     return () => clearInterval(id);
   }, [isLoading]);
@@ -22,7 +22,11 @@ function ProgressBar({ isLoading }) {
   return (
     <div className="progress-container">
       <div className="progress-bar" style={{ width: `${progress}%` }}>
-        {progress}%
+        {progress < 30
+          ? progress + "%"
+          : progress < 90
+          ? "Fake laddar..."
+          : progress + "%"}
       </div>
     </div>
   );
