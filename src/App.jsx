@@ -49,6 +49,7 @@ function App() {
 
   const changeHowMany = (e) => {
     setHowMany(e.target.value);
+    setIsLoading(false)
   };
   console.log(`Will load ${howMany} pokemons`);
 
@@ -56,7 +57,7 @@ function App() {
     <div>
       <h1>Pokemon Loader</h1>
       <input value={howMany} onChange={changeHowMany} />
-      <button onClick={() => setFetchData(!fetchData)}>Hämta Pokemons</button>
+      <button onClick={() => setFetchData(!fetchData) }>Hämta Pokemons</button>
       <ProgressBar isLoading={isLoading} />
 
       <h5>Antal Pokémon: {pokemons}</h5>
