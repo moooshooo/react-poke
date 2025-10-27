@@ -1,11 +1,34 @@
-import { useState } from "react"
+import { useState, useEffect } from "react";
 
-function ProgressBar() {
-    const [progress, setProgress] = useState(0)    
+function ProgressBar({ isLoading }) {
+  const [progress, setProgress] = useState(0);
 
-    
+  useEffect(() => {
+    if (!isLoading) return;
+
+    let width = 0;
+    const id = setInterval(() => {
+      if (width >= 100) {
+        clearInterval(id);
+      } else {
+        width++;
+        setProgress(width);
+      }
+    }, 10);
+
+    return () => clearInterval(id);
+  }, [isLoading]);
+
+  return (
+    <div className="progress-container">
+      <div className="progress-bar" style={{ width: `${progress}%` }}>
+        {progress}%
+      </div>
+    </div>
+  );
 }
-export default ProgressBar
+
+export default ProgressBar;
 // Source https://www.w3schools.com/howto/howto_js_progressbar.asp
 /* var i = 0;
 function move() {
