@@ -12,6 +12,7 @@ function App() {
   const [fetchData, setFetchData] = useState(false);
   const [pokemonData, setPokemonData] = useState([]);
   const [speciesData, setSpeciesData] = useState([]);
+  const [allInfo, setAllInfo] = useState([]);
 
   useEffect(() => {
     async function getPokemons() {
@@ -36,20 +37,20 @@ function App() {
           return { pokeData, speciesData };
         })
       );
+      setAllInfo(detailedData)
       setPokemonData(detailedData.map((d) => d.pokeData));
       setSpeciesData(detailedData.map((d) => d.speciesData));
 
       console.log("Now you have more info");
+      console.log(allInfo);
     }
     setIsLoading(true);
     getPokemons();
-
-
   }, [fetchData]); //Förstår inte varför ESLint vill ha API_URL här är det för hur jag använt js i strängen?
 
   const changeHowMany = (e) => {
     setHowMany(e.target.value);
-    setIsLoading(false)
+    setIsLoading(false);
   };
   console.log(`Will load ${howMany} pokemons`);
 
@@ -57,7 +58,7 @@ function App() {
     <div>
       <h1>Pokemon Loader</h1>
       <input value={howMany} onChange={changeHowMany} />
-      <button onClick={() => setFetchData(!fetchData) }>Hämta Pokemons</button>
+      <button onClick={() => setFetchData(!fetchData)}>Hämta Pokemons</button>
       <ProgressBar isLoading={isLoading} />
 
       <h5>Antal Pokémon: {pokemons}</h5>
